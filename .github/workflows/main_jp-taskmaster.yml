@@ -31,5 +31,5 @@ jobs:
       uses: azure/webapps-deploy@v2
       with: 
         app-name: 'jp-taskmaster'
-        publish-profile: ${{ secrets.AZUREPUBLISHSECRET }}
+        publish-profile: ${{ AZUREPUBLISHSECRET }}
         package: ${{env.DOTNET_ROOT}}/myapp 
