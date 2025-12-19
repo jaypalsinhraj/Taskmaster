@@ -24,9 +24,20 @@ jobs:
       - name: dotnet publish
         run: dotnet publish -c Release -o ./publish
 
-      - name: Deploy to Azure Web App
-        uses: azure/webapps-deploy@v3  # ← Changed from v2 to v3
+      - name: Zip the app
+        run: |
+          cd ./publish
+          zip -r ../deploy.zip .
+          cd ..
+
+      - name: Login to Azure
+        uses: azure/login@v1
         with:
-          app-name: 'jp-taskmaster'
-          publish-profile: ${{ secrets.AZUREPUBLISHSECRET }}
-          package: ./publish  # ← Also simplified the path
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy to Azure Web App
+        run: |
+          az webapp deployment source config-zip \
+            --resource-group rg-taskmaster-prod \
+            --name jp-taskmaster \
+            --src deploy.zip
