@@ -31,6 +31,5 @@ jobs:
       uses: azure/webapps-deploy@v2
       with: 
         app-name: 'jp-taskmaster'
-        slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_2e1a0dbbb7054e608bdf64878684caf5 }}
+        publish-profile: ${{ secrets.AZUREPUBLISHSECRET }}
         package: ${{env.DOTNET_ROOT}}/myapp 
