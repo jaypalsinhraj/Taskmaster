@@ -38,6 +38,6 @@ jobs:
       - name: Deploy to Azure Web App
         run: |
           az webapp deployment source config-zip \
-            --resource-group rg-taskmaster-prod \
+            --resource-group rg-taskmaster \
             --name jp-taskmaster \
             --src deploy.zip
