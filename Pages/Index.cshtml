@@ -1,0 +1,122 @@
+@page
+@model TaskMaster.Pages.IndexModel
+@{
+    ViewData["Title"] = "Task Master";
+}
+
+<div class="container mt-4">
+    <h1 class="mb-4">📋 Task Master</h1>
+
+    <!-- Add New Task Form -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Add New Task</h5>
+        </div>
+        <div class="card-body">
+            <form method="post" asp-page-handler="AddTask">
+                <div class="mb-3">
+                    <label asp-for="NewTask.Title" class="form-label">Task Title</label>
+                    <input asp-for="NewTask.Title" class="form-control" placeholder="Enter task title" />
+                    <span asp-validation-for="NewTask.Title" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="NewTask.Description" class="form-label">Description (Optional)</label>
+                    <textarea asp-for="NewTask.Description" class="form-control" rows="3" placeholder="Enter task description"></textarea>
+                    <span asp-validation-for="NewTask.Description" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-plus-circle"></i> Add Task
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Active Tasks -->
+    <div class="card mb-4">
+        <div class="card-header bg-success text-white">
+            <h5 class="mb-0">Active Tasks (@Model.Tasks.Count)</h5>
+        </div>
+        <div class="card-body">
+            @if (Model.Tasks.Any())
+            {
+                <div class="list-group">
+                    @foreach (var task in Model.Tasks)
+                    {
+                        <div class="list-group-item">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1">@task.Title</h6>
+                                    @if (!string.IsNullOrEmpty(task.Description))
+                                    {
+                                        <p class="mb-1 text-muted">@task.Description</p>
+                                    }
+                                    <small class="text-muted">Created: @task.CreatedAt.ToLocalTime().ToString("MMM dd, yyyy hh:mm tt")</small>
+                                </div>
+                                <div class="btn-group ms-3">
+                                    <form method="post" asp-page-handler="Complete" asp-route-id="@task.Id" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-success" title="Mark as complete">
+                                            <i class="bi bi-check-circle"></i>
+                                        </button>
+                                    </form>
+                                    <form method="post" asp-page-handler="Delete" asp-route-id="@task.Id" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-danger" 
+                                                onclick="return confirm('Are you sure you want to delete this task?')" 
+                                                title="Delete task">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <p class="text-muted mb-0">No active tasks. Add a new task to get started!</p>
+            }
+        </div>
+    </div>
+
+    <!-- Completed Tasks -->
+    @if (Model.CompletedTasks.Any())
+    {
+        <div class="card">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0">Completed Tasks (@Model.CompletedTasks.Count)</h5>
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    @foreach (var task in Model.CompletedTasks)
+                    {
+                        <div class="list-group-item bg-light">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1 text-decoration-line-through">@task.Title</h6>
+                                    @if (!string.IsNullOrEmpty(task.Description))
+                                    {
+                                        <p class="mb-1 text-muted text-decoration-line-through">@task.Description</p>
+                                    }
+                                    <small class="text-muted">Completed: @task.CompletedAt?.ToLocalTime().ToString("MMM dd, yyyy hh:mm tt")</small>
+                                </div>
+                                <div class="ms-3">
+                                    <form method="post" asp-page-handler="Delete" asp-route-id="@task.Id" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-danger" 
+                                                onclick="return confirm('Are you sure you want to delete this task?')" 
+                                                title="Delete task">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
