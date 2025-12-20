@@ -16,7 +16,7 @@ jobs:
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.x'
+          dotnet-version: "8.x"
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
@@ -35,9 +35,22 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Deploy to Azure Web App
+      - name: Deploy to Staging Slot
         run: |
           az webapp deployment source config-zip \
             --resource-group rg-taskmaster \
             --name jp-taskmaster \
+            --slot staging \
             --src deploy.zip
+
+      - name: Deployment Summary
+        run: |
+          echo "✅ Deployment to staging complete!"
+          echo ""
+          echo "🔗 Staging URL: https://jp-taskmaster-staging.azurewebsites.net"
+          echo "🔗 Production URL: https://jp-taskmaster.azurewebsites.net"
+          echo ""
+          echo "📋 Next steps:"
+          echo "1. Test your changes in staging"
+          echo "2. When ready, swap to production using:"
+          echo "   az webapp deployment slot swap --resource-group rg-taskmaster --name jp-taskmaster --slot staging --target-slot production"
