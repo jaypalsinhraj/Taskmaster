@@ -1,3 +1,5 @@
+@page
+@model TaskMaster.Pages.AboutModel
 @{
     ViewData["Title"] = "About";
 }
@@ -42,9 +44,4 @@
             </tr>
         </tbody>
     </table>
-</div>
-
-<div class="mt-4">
-    <h3>From Configuration:</h3>
-    <p>Configuration["DEPLOYMENT_SLOT"]: @(Context.RequestServices.GetService<IConfiguration>()?["DEPLOYMENT_SLOT"] ?? "NULL")</p>
 </div>

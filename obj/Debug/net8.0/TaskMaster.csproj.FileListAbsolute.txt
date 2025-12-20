@@ -132,3 +132,4 @@ C:\Users\rajja\Documents\Projects\TaskMaster\obj\Debug\net8.0\refint\TaskMaster.
 C:\Users\rajja\Documents\Projects\TaskMaster\obj\Debug\net8.0\TaskMaster.pdb
 C:\Users\rajja\Documents\Projects\TaskMaster\obj\Debug\net8.0\TaskMaster.genruntimeconfig.cache
 C:\Users\rajja\Documents\Projects\TaskMaster\obj\Debug\net8.0\ref\TaskMaster.dll
+C:\Users\rajja\Documents\Projects\TaskMaster\obj\Debug\net8.0\TaskMaster.sourcelink.json
