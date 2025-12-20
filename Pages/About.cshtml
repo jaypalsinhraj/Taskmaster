@@ -1,0 +1,50 @@
+@{
+    ViewData["Title"] = "About";
+}
+
+<div class="text-center">
+    <h1 class="display-4">About</h1>
+</div>
+
+<div class="mt-4">
+    <h3>Environment Variables:</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Variable</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>WEBSITE_SLOT_NAME</td>
+                <td>@(Environment.GetEnvironmentVariable("WEBSITE_SLOT_NAME") ?? "NULL")</td>
+            </tr>
+            <tr>
+                <td>WEBSITE_HOSTNAME</td>
+                <td>@(Environment.GetEnvironmentVariable("WEBSITE_HOSTNAME") ?? "NULL")</td>
+            </tr>
+            <tr>
+                <td>WEBSITE_SITE_NAME</td>
+                <td>@(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME") ?? "NULL")</td>
+            </tr>
+            <tr>
+                <td>WEBSITE_INSTANCE_ID</td>
+                <td>@(Environment.GetEnvironmentVariable("WEBSITE_INSTANCE_ID") ?? "NULL")</td>
+            </tr>
+            <tr>
+                <td>ASPNETCORE_ENVIRONMENT</td>
+                <td>@(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "NULL")</td>
+            </tr>
+            <tr>
+                <td>DEPLOYMENT_SLOT (custom)</td>
+                <td>@(Environment.GetEnvironmentVariable("DEPLOYMENT_SLOT") ?? "NULL")</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="mt-4">
+    <h3>From Configuration:</h3>
+    <p>Configuration["DEPLOYMENT_SLOT"]: @(Context.RequestServices.GetService<IConfiguration>()?["DEPLOYMENT_SLOT"] ?? "NULL")</p>
+</div>
