@@ -1,13 +1,27 @@
+using System.Security.AccessControl;
 using Microsoft.EntityFrameworkCore;
+using Azure.Identity;
 using TaskMaster.Data;
+using System.Data;
 
 var builder = WebApplication.CreateBuilder(args);
+var keyVaultName = builder.Configuration["KeyVaultName"];
+if (!string.IsNullOrEmpty(keyVaultName))
+{
+    var keyVaultUri = new Uri($"https://{keyVaultName}.vault.azure.net/");
+
+    // Use DefaultAzureCredential - works with Managed Identity in Azure AND az login locally
+    builder.Configuration.AddAzureKeyVault(
+        keyVaultUri,
+        new DefaultAzureCredential()
+    );
+}
 
 // Add services
 builder.Services.AddRazorPages();
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<TaskDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+    options.UseSqlServer(connectionString));
 var app = builder.Build();
 
 // Configure middleware

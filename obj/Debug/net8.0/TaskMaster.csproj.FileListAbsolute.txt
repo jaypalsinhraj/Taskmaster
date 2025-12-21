@@ -133,3 +133,8 @@ C:\Users\rajja\Documents\Projects\TaskMaster\obj\Debug\net8.0\TaskMaster.pdb
 C:\Users\rajja\Documents\Projects\TaskMaster\obj\Debug\net8.0\TaskMaster.genruntimeconfig.cache
 C:\Users\rajja\Documents\Projects\TaskMaster\obj\Debug\net8.0\ref\TaskMaster.dll
 C:\Users\rajja\Documents\Projects\TaskMaster\obj\Debug\net8.0\TaskMaster.sourcelink.json
+C:\Users\rajja\Documents\Projects\TaskMaster\bin\Debug\net8.0\Azure.Extensions.AspNetCore.Configuration.Secrets.dll
+C:\Users\rajja\Documents\Projects\TaskMaster\bin\Debug\net8.0\Azure.Security.KeyVault.Secrets.dll
+C:\Users\rajja\Documents\Projects\TaskMaster\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\rajja\Documents\Projects\TaskMaster\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\rajja\Documents\Projects\TaskMaster\bin\Debug\net8.0\System.ClientModel.dll
